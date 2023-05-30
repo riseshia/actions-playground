@@ -1,0 +1,17 @@
+name: Status event
+
+on:
+  - status
+
+jobs:
+  write_push:
+    name: Logging event
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      status: read
+      pull-requests: read
+    steps:
+      - name: logging event
+        run: |
+          echo '${{ toJSON(github.event) }}'

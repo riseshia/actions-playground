@@ -1,0 +1,13 @@
+name: 'Run tests'
+description: 'Run all tests'
+runs:
+  using: "composite"
+  steps:
+    - name: "Setup env"
+      shell: bash
+      run: |
+        echo bundle install
+        echo bin/setup
+    - name: "Run test"
+      shell: bash
+      run: ./run-test.sh

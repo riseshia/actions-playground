@@ -1,0 +1,47 @@
+name: Chained jobs example
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  job_a:
+    name: Job A
+    runs-on: ubuntu-latest
+    steps:
+      - name: Execute some codes
+        run: |
+          echo Job A executed
+
+  job_b:
+    name: Job B
+    runs-on: ubuntu-latest
+    needs: [ job_a ]
+    steps:
+      - name: Execute some codes
+        run: |
+          echo Job B executed
+          exit 1 # Let it fail
+
+  job_c:
+    name: Job C
+    runs-on: ubuntu-latest
+    needs: [ job_b ]
+    steps:
+      - name: Execute some codes
+        run: |
+          echo Job C executed
+
+  job_d:
+    if: 'always()'
+    name: Job D
+    runs-on: ubuntu-latest
+    needs: [ job_c ]
+    steps:
+      - name: Execute some codes
+        run: |
+          echo Job D executed

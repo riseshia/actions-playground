@@ -31,7 +31,7 @@ jobs:
         script: |
           const fs = require('fs')
           const result = fs.readFileSync('result.txt', 'utf8')
-          github.issues.createComment({
+          github.rest.issues.createComment({
             ...context.repo,
             issue_number: parseInt(process.env.PR_NUMBER),
             body: result

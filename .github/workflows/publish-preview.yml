@@ -1,0 +1,24 @@
+name: Created comment to merged PR
+
+on:
+  pull_request:
+    - opened
+    - reopened
+    - synchronize
+
+jobs:
+  run_action:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out the code
+      uses: actions/checkout@v3
+
+    - name: Preview publish result
+      uses: riseshia/sync-pr-action-and-comment@v1
+      with:
+        issue-number: ${{ github.event.pull_request.number }}
+        body-as-string: |
+          Preview deployed.
+          Url: `https://some-host/`
+          Revision: ${{ github.event.pull_request.head.sha }}

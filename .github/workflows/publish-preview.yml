@@ -1,10 +1,11 @@
-name: Created comment to merged PR
+name: Publish preview
 
 on:
   pull_request:
-    - opened
-    - reopened
-    - synchronize
+    types:
+      - opened
+      - reopened
+      - synchronize
 
 jobs:
   run_action:

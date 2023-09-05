@@ -1,0 +1,27 @@
+name: Test actions/checkout
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  checkout:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: riseshia/checkout@pass-sp-to-fo
+  checkout_with_progress:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: riseshia/checkout@pass-sp-to-fo
+        with:
+          show-progress: true
+  checkout_without_progress:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: riseshia/checkout@pass-sp-to-fo
+        with:
+          show-progress: false

@@ -6,6 +6,13 @@ on:
       - main
 
 jobs:
+  with_ref:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          ref: 417c7ecf794c902e23e6eba0fbf85aa82fe75f70
   checkout:
     runs-on: ubuntu-latest
     steps:

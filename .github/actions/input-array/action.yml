@@ -9,6 +9,17 @@ runs:
   using: "composite"
   steps:
     - name: "Echo~"
+      id: fetch-actual
       shell: bash
       run: |
-        echo '${{ inputs.ensure }}'
+        echo "actual=pushed,image_built,ci_passed" >> "$GITHUB_OUTPUT"
+
+    - uses: actions/github-script@v7
+      with:
+        result-encoding: string
+        retries: 3
+        script: |
+          const ensure = "${{ inputs.ensure }}".split(",").map(event => event.trim()).sort().join()
+          const actual = "${{ steps.fetch-actual.outputs.actual }}".split(",").map(event => event.trim()).sort().join()
+          console.log(ensure)
+          console.log(actual)

@@ -1,7 +1,9 @@
 name: Array Input test
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   with_ref:
@@ -9,7 +11,8 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v4
+
       - name: testtest
         uses: ./.github/actions/input-array
         with:
-          ensure: [a, b, c]
+          ensure: a, b, c

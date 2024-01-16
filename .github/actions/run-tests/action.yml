@@ -1,5 +1,6 @@
 name: 'Run tests'
 description: 'Run all tests'
+
 runs:
   using: "composite"
   steps:

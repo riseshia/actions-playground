@@ -1,0 +1,14 @@
+name: 'Input array test'
+description: 'Input array test'
+
+inputs:
+  ensure:
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: "Echo~"
+      shell: bash
+      run: |
+        echo '${{ inputs.ensure }}'

@@ -1,0 +1,16 @@
+name: fubura install latest
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fubura:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: install fubura
+        uses: riseshia/fubura@v0
+        with:
+          version: latest

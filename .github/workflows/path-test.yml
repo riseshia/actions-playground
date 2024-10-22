@@ -1,0 +1,19 @@
+name: path trigger test
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '**.jsonnet'
+      - '!lib/**.jsonnet'
+
+jobs:
+  fubura:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: run!
+        run: echo "called"

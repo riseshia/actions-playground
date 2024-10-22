@@ -7,7 +7,7 @@ on:
     paths:
       - '**.jsonnet'
       - '!apps/lib/**.jsonnet'
-      - '!apps/**/config/**.jsonnet'
+      - '!apps/*/config/**.jsonnet'
 
 jobs:
   fubura:

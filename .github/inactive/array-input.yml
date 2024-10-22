@@ -1,9 +1,7 @@
 name: Array Input test
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   with_ref:

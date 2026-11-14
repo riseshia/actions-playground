@@ -1,0 +1,35 @@
+# newrevo-Inc/logikura#17866 の検証用。
+# pull-requests: write だけの GITHUB_TOKEN で gh pr edit のラベル付け替えが通るかを見る。
+name: label token test
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  relabel:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+    steps:
+      - name: 準備（ラベルを外す）
+        run: |
+          gh pr edit "$PR_NUMBER" --remove-label "レビュー完了" --remove-label "レビュー依頼"
+          gh pr view "$PR_NUMBER" --json labels --jq '[.labels[].name]'
+
+      - name: ケース1 「レビュー依頼」が付いていない
+        run: |
+          gh pr edit "$PR_NUMBER" --add-label "レビュー完了" --remove-label "レビュー依頼"
+          gh pr view "$PR_NUMBER" --json labels --jq '[.labels[].name]'
+
+      - name: ケース2 「レビュー依頼」が付いている
+        run: |
+          gh pr edit "$PR_NUMBER" --remove-label "レビュー完了" --add-label "レビュー依頼"
+          gh pr view "$PR_NUMBER" --json labels --jq '[.labels[].name]'
+          gh pr edit "$PR_NUMBER" --add-label "レビュー完了" --remove-label "レビュー依頼"
+          gh pr view "$PR_NUMBER" --json labels --jq '[.labels[].name]'
